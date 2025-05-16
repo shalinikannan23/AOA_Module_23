@@ -1,5 +1,6 @@
 ## DATE : 
-## AIM : To find the minimum cost path from the top-left cell (0, 0) to a given cell (m, n) in a matrix using Dynamic Programming.
+## AIM : 
+To find the minimum cost path from the top-left cell (0, 0) to a given cell (m, n) in a matrix using Dynamic Programming.
 
 ## Algorithm :
 
@@ -42,4 +43,8 @@ cost = [[1, 2, 3],
 print(minCost(cost, R-1, C-1))
 ```
 ## Output :
+![image](https://github.com/user-attachments/assets/37851dc4-d7db-4a50-9242-982297aec3e4)
+
+## Result:
+Thus, the program was executed successfully for computing the minimum cost path using Dynamic Programming.
 
