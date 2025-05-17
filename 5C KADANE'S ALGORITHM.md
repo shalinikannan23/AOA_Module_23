@@ -1,51 +1,62 @@
+# EX 5C Kadane's Algorithm
 ## DATE:
-## AIM :
-To find the maximum sum of a contiguous subarray within a one-dimensional integer array using Kadane's Algorithm.
+## AIM:
+To write a python program to find the maximum contiguous subarray.
 
-## Algorithm
 
-1. Initialize two variables:
-   - `max_sum` to the first element of the array (to handle negative numbers)
-   - `current_sum` to 0
+## Algorithm:
 
-2. Traverse each element `a[i]` in the array:
-   - Add `a[i]` to `current_sum`
-   - If `current_sum` becomes negative, reset it to 0 (start a new subarray)
-   - Update `max_sum` if `current_sum` is greater than `max_sum`
+1. **Initialize Tracking Variables:**  
+   - Set `max_till_now` to the first element of the array (to handle all-negative arrays).  
+   - Set `max_ending` to `0` to track the sum of the current subarray.  
 
-3. After iterating through the array, `max_sum` holds the maximum contiguous subarray sum.
+2. **Iterate Through the Array:**  
+   - For each element in the array, add it to `max_ending`.  
 
-## PROGRAM
+3. **Reset for Negative Sums:**  
+   - If `max_ending` becomes negative, reset it to `0` (this effectively starts a new subarray).  
+
+4. **Update the Maximum Sum:**  
+   - If the current `max_ending` is greater than `max_till_now`, update `max_till_now` to this new maximum.  
+
+5. **Return the Result:**  
+   - After the loop, return `max_till_now` as the maximum contiguous subarray sum. 
+
+## Program:
 ```
-DEVELOPED BY : SHALINI K
-REGISTER NUMBER : 212222240095
+/*
+To implement the program to find the maximum contiguous subarray.
 
-def maxSubArraySum(a, size):
-    max_sum = a[0]
-    current_sum = 0
-    
-    for i in range(size):
-        current_sum += a[i]
-        
-        if current_sum < 0:
-            current_sum = 0
-        
-        if current_sum > max_sum:
-            max_sum = current_sum
-    
-    return max_sum
+Developed by: SHALINI K 
+Register Number: 212222240095
+*/
 
-if __name__ == '__main__':
-    n = int(input("Enter number of elements: "))
-    a = []
-    for _ in range(n):
-        a.append(int(input()))
+def maxSubArraySum(a,size):
+    max_till_now = a[0]
+    max_ending = 0
     
-    print("Maximum contiguous sum is", maxSubArraySum(a, n))
+    for i in range(0, size):
+        max_ending = max_ending + a[i]
+        if max_ending < 0:
+            max_ending = 0
+        
+        
+        elif (max_till_now < max_ending):
+            max_till_now = max_ending
+            
+    return max_till_now
+n=int(input())  
+a =[] #[-2, -3, 4, -1, -2, 1, 5, -3]
+for i in range(n):
+    a.append(int(input()))
+  
+print("Maximum contiguous sum is", maxSubArraySum(a,n))
 ```
 
-## OUTPUT:
-![image](https://github.com/user-attachments/assets/cd47ce5f-decd-4d55-986f-5e88705e7e65)
+## Output:
 
-## RESULT :
-Thus, the program successfully calculates the maximum sum of a contiguous subarray using Kadane's algorithm.
+![image](https://github.com/user-attachments/assets/d1f68239-2b5e-42b7-bbe1-28ec1834e5a2)
+
+
+## Result:
+Thus the program was executed successfully for finding the maximum contiguous sum of subarray..
