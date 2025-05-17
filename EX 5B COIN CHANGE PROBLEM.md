@@ -1,54 +1,54 @@
+# EX 5B Coin Change Problem
 ## DATE:
-## AIM :
-To find the total number of distinct ways to get a change of `target` amount from an unlimited supply of coins in set `S` using Dynamic Programming.
+## AIM:
+To compute the fewest number of coins that we need to make up the amount given.
 
-## ALGORITHM :
-1. **Input**:  
-   - Coin denominations array `S = {S0, S1, ..., Sn-1}`  
-   - Target amount `target`  
-   - Number of coin types `n` (length of `S`)
 
-2. **Base Cases**:  
-   - If `target == 0`: return 1 (there is one way to make zero amount)  
-   - If `target < 0` or `n < 0`: return 0 (no way to make change)
+## Algorithm:
 
-3. **Recursive Steps**:  
-   For the coin at index `n`, two choices:  
-   - **Include** the coin: reduce target by `S[n]` and keep `n` (unlimited usage)  
-   - **Exclude** the coin: reduce `n` by 1 to move to next coin, keep target same
+1. **Initialize the DP Array:**  
+   - Create a `dp` array of size `(amount + 1)` initialized to **infinity** (representing unreachable amounts).  
+   - Set `dp[0]` to `0`, as zero coins are needed to make a total of 0.  
 
-4. **Combine**:  
-   Total ways = ways including coin + ways excluding coin.
+2. **Fill the DP Array:**  
+   - For each coin in the list, update the `dp` values for all possible amounts from the coin's value to the target amount.  
+   - Use the relation: `dp[i] = min(dp[i], dp[i - coin] + 1)`
+3. If the final entry in the `dp` array (`dp[amount]`) is still infinity, return -1 to indicate that the amount cannot be formed.
+4. Otherwise, return the value at `dp[amount]`, representing the minimum number of coins required.
+   
 
-5. **Output**:  
-Call `count(S, n-1, target)` to get the total number of ways.
-
-## PROGRAM :
+## Program:
 ```
-DEVELOPED BY: SHALINI K
-REGISTER NUMBER: 212222240095
+/*
+Create a python function to compute the fewest number of coins that we need to make up the amount given.
 
-def count(S, n, target):
-    if target==0:
-        return 1
-    if target<0 or n<0:
-        return 0
-    incl=count(S,n,target-S[n])
-    excl=count(S,n-1,target)
-    return incl+excl
+Developed by: SHALINI K
+Register Number: 212222240095
+*/
 
-if __name__ == '__main__':
-    S = []#[1, 2, 3]
-    n=int(input())
-    target = int(input())
-    for i in range(n):
-        S.append(int(input()))
-    print('The total number of ways to get the desired change is',
-        count(S, len(S) - 1, target))
+class Solution(object):
+   def coinChange(self, coins, amount):
+       dp = [float('inf')] * (amount + 1)
+       dp[0]=0
+       for coin in coins:
+           for i in range(coin, amount + 1):
+               dp[i] = min(dp[i], dp[i - coin] + 1)
+       return dp[amount] if dp[amount]!=float('inf') else -1
+      
+ob1 = Solution()
+n=int(input())
+s=[]
+amt=int(input())
+for i in range(n):
+    s.append(int(input()))
+
+print(ob1.coinChange(s,amt))
 ```
 
-## OUTPUT :
-![image](https://github.com/user-attachments/assets/6411ba3f-eaa8-439f-902f-f0bfeb4ac481)
+## Output:
 
-## RESULT :
-Thus, the program successfully computes the total number of distinct ways to make change for the given target amount using the provided coin denominations.
+![image](https://github.com/user-attachments/assets/6f115770-0bcf-497d-a6b9-a87da8415d2d)
+
+
+## Result:
+Thus the program was executed successfully for finding the minimum number of coins required to make amount.
