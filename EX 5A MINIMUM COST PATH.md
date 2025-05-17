@@ -1,50 +1,64 @@
-## DATE : 
-## AIM : 
-To find the minimum cost path from the top-left cell (0, 0) to a given cell (m, n) in a matrix using Dynamic Programming.
+# EX 5A Minimum Cost Path
+## DATE:
+## AIM:
+To write a Python program using A Naive recursive implementation of Minimum Cost Path Problem.
 
-## Algorithm :
 
-1. **Input**: A 2D cost matrix of size `R x C`, and a destination cell `(m, n)`.
-2. **Create** a 2D list `tc` of the same size as the cost matrix to store the **minimum cost** to reach each cell.
-3. **Initialize**:
-   - `tc[0][0]` with `cost[0][0]`.
-   - First column `tc[i][0] = tc[i-1][0] + cost[i][0]` for all `i`.
-   - First row `tc[0][j] = tc[0][j-1] + cost[0][j]` for all `j`.
-4. **Fill the rest** of the matrix:
-   - For each cell `(i, j)`, compute the minimum cost from the three possible directions:
-     ```python
-     tc[i][j] = min(tc[i-1][j-1], tc[i-1][j], tc[i][j-1]) + cost[i][j]
-     ```
-5. **Output**: The value in `tc[m][n]` is the **minimum cost** to reach the destination.
+## Algorithm:
 
-## Program :
+1. **Handle Base Cases:**  
+   - If the destination cell `(m, n)` is out of bounds, return the maximum possible integer to indicate an invalid path.  
+   - If the starting cell `(0, 0)` is reached, return the cost of that cell, as no more movement is required.  
+
+2. **Recursive Cost Calculation:**  
+   - If the current cell is not the starting cell, add its cost to the minimum cost required to reach it from one of its possible neighbors:  
+   - **Possible moves:**  
+     - Diagonal `(m-1, n-1)`  
+     - Up `(m-1, n)`  
+     - Left `(m, n-1)`  
+
+3. **Custom Minimum Function:**  
+   - Use a custom `min()` function to select the smallest cost among the possible moves to ensure you get the minimum cost path.  
+
+4. **Return the Minimum Cost:**  
+   - Return the minimum cost calculated from the above steps as the final result.  
+
+## Program:
 ```
-DEVELOPED BY : SHALINI K
-REGISTER NUMBER : 212222240095
+/*
+A program to implement to find the Minimum Cost Path Problem using a  Naive recursive Approach.
+
+Developed by: SHALINI K
+Register Number: 212222240095
+*/
+
 
 R = int(input())
 C = int(input())
+import sys
 def minCost(cost, m, n):
-    tc = [[0 for x in range(C)] for x in range(R)]
-    tc[0][0] = cost[0][0]
-    for i in range(1, m+1):
-        tc[i][0] = tc[i-1][0] + cost[i][0]
-    for j in range(1, n+1):
-        tc[0][j] = tc[0][j-1] + cost[0][j]
-    for i in range(1, m+1):
-        for j in range(1, n+1):
-            tc[i][j] = min(tc[i-1][j-1], tc[i-1][j], tc[i][j-1]) + cost[i][j]
- 
-    return tc[m][n]
- 
-cost = [[1, 2, 3],
+    if (n < 0 or m < 0):
+        return sys.maxsize
+    elif (m == 0 and n == 0):
+        return cost[m][n]
+    else:
+        return cost[m][n] + min( minCost(cost, m-1, n-1),
+                                minCost(cost, m-1, n),
+                                minCost(cost, m, n-1) )
+def min(x, y, z):
+    if (x < y):
+        return x if (x < z) else z
+    else:
+        return y if (y < z) else z
+cost= [ [1, 2, 3],
         [4, 8, 2],
-        [1, 5, 3]]
+        [1, 5, 3] ]
 print(minCost(cost, R-1, C-1))
 ```
-## Output :
-![image](https://github.com/user-attachments/assets/37851dc4-d7db-4a50-9242-982297aec3e4)
+
+## Output:
+
+![image](https://github.com/user-attachments/assets/6411ba3f-eaa8-439f-902f-f0bfeb4ac481)
 
 ## Result:
-Thus, the program was executed successfully for computing the minimum cost path using Dynamic Programming.
-
+Thus the above program was executed successfully for finding the minimum cost.
